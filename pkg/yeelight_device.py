@@ -3,7 +3,7 @@ from yeelight import Bulb
 import threading
 import time
 
-from pkg.yeelight_property import BrightProperty, OnOffProperty, ColorProperty
+from pkg.yeelight_property import BrightProperty, OnOffProperty, ColorProperty, rgb_to_hex
 
 _POLL_INTERVAL = 5
 
@@ -25,6 +25,15 @@ class YeelightDevice(Device):
 
         Device.__init__(self, adapter, _id)
 
+        # self.on = None
+        # self.bright = None
+        # self.color = None
+        # self.color_temp = None
+
+        t = threading.Thread(target=self.poll)
+        t.daemon = True
+        t.start()
+
 
 class YeelightBulb(YeelightDevice):
     """TP-Link smart plug type."""
@@ -37,6 +46,8 @@ class YeelightBulb(YeelightDevice):
         hs100_dev -- the pyHS100 device object to initialize from
         index -- index inside parent device
         """
+        print(message)
+
         _id = "Light" + message["ip"]
         _ip = message["ip"]
         YeelightDevice.__init__(self,
@@ -44,7 +55,7 @@ class YeelightBulb(YeelightDevice):
         self._type.append('Light')
 
         # bright
-        if message["capabilities"].has("bright"):
+        if "set_bright" in message["capabilities"]["support"]:
             self.properties['level'] = BrightProperty(
                 self,
                 'level',
@@ -56,23 +67,22 @@ class YeelightBulb(YeelightDevice):
                     'minimum': 0,
                     'maximum': 100,
                 },
-                100
+                int(message["capabilities"]["bright"])
             )
 
         # color_mode
-        if message["capabilities"].has("color_mode"):
-            self.properties['level'] = ColorProperty(
+
+        if "set_rgb" in message["capabilities"]["support"]:
+            self.properties['hue'] = ColorProperty(
                 self,
-                'level',
+                'hue',
                 {
-                    '@type': 'BrightnessProperty',
-                    'title': 'Brightness',
-                    'type': 'integer',
-                    'unit': 'percent',
-                    'minimum': 0,
-                    'maximum': 100,
+                    '@type': 'ColorProperty',
+                    'title': 'Hue',
+                    'type': 'string',
+
                 },
-                100
+                "#FFFFFF",
             )
 
         # on
@@ -84,9 +94,30 @@ class YeelightBulb(YeelightDevice):
                 'title': 'On/Off',
                 'type': 'boolean',
             },
-            ""
+            message["capabilities"]["power"]
         )
 
-    def poll(self, data):
-        print(data)
-        return
+    def poll(self):
+        """Poll the device for changes."""
+
+        def onMessage(params):
+            print(params)
+
+            if "power" in params.keys():
+                if params["power"] == "on":
+                    self.properties["on"].set_cached_value_and_notify(True)
+                if params["power"] == "off":
+                    self.properties["on"].set_cached_value_and_notify(False)
+            if "bright" in params.keys():
+                self.properties["level"].set_cached_value_and_notify(params["bright"])
+            if "hue" in params.keys():
+                self.properties["hue"].set_cached_value_and_notify(params["hue"])
+
+        while True:
+            time.sleep(_POLL_INTERVAL)
+
+            try:
+                self.bulb.listen(onMessage)
+            except Exception as e:
+                print(e)
+                continue

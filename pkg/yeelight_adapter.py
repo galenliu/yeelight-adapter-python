@@ -19,8 +19,8 @@ class YeelightAdapter(Adapter):
         """
         self.name = self.__class__.__name__
         Adapter.__init__(self,
-                         'yeelight-adapter-python',
                          'yeelight-adapter',
+                         'yeelight-adapter-python',
                          verbose=verbose)
 
         self.pairing = False
@@ -31,6 +31,7 @@ class YeelightAdapter(Adapter):
         Start the pairing process.
         timeout -- Timeout in seconds at which to quit pairing
         """
+        print("start_pairing......")
         if self.pairing:
             return
         self.pairing = True
@@ -43,9 +44,13 @@ class YeelightAdapter(Adapter):
 
     def discover(self):
         """discover  devices."""
-        message_dict = discover_bulbs()
+        try:
+            messages = discover_bulbs()
+            for message in messages:
+                dev = YeelightBulb(self, message)
+                print("addon device:", dev)
+                self.handle_device_added(dev)
+        except Exception as e:
+            print(e)
 
-
-        for message in message_dict:
-            dev = YeelightBulb(self, message)
-            self.handle_device_added(dev)
+        print("discover over......")
