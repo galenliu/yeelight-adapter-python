@@ -1,9 +1,9 @@
-from gateway_addon import Device
-from yeelight import Bulb
 import threading
 import time
 
-from pkg.yeelight_property import BrightProperty, OnOffProperty, ColorProperty, rgb_to_hex
+from gateway_addon import Device
+from pkg.yeelight_property import BrightProperty, OnOffProperty, ColorProperty
+from yeelight import Bulb
 
 _POLL_INTERVAL = 5
 
@@ -18,10 +18,12 @@ class YeelightDevice(Device):
         hs100_dev -- the pyHS100 device object to initialize from
         index -- index inside parent device
         """
-        self.bulb = Bulb(ip)
-        self.bulb.turn_on()
-        time.sleep(2)
-        self.bulb.turn_off()
+
+        try:
+            self.bulb = Bulb(ip)
+            self.bulb.turn_off()
+        except Exception as e:
+            print(e)
 
         Device.__init__(self, adapter, _id)
 
@@ -30,9 +32,9 @@ class YeelightDevice(Device):
         # self.color = None
         # self.color_temp = None
 
-        t = threading.Thread(target=self.poll)
-        t.daemon = True
-        t.start()
+        # t = threading.Thread(target=self.poll)
+        # t.daemon = True
+        # t.start()
 
 
 class YeelightBulb(YeelightDevice):

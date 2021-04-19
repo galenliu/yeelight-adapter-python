@@ -18,7 +18,6 @@ if os.name == "nt":
 else:
     import fcntl
 
-
 try:
     from urllib.parse import urlparse
 except ImportError:
@@ -172,7 +171,7 @@ class BulbType(Enum):
 
 class Bulb(object):
     def __init__(
-        self, ip, port=55443, effect="smooth", duration=300, auto_on=False, power_mode=PowerMode.LAST, model=None
+            self, ip, port=55443, effect="smooth", duration=300, auto_on=False, power_mode=PowerMode.LAST, model=None
     ):
         """
         The main controller class of a physical YeeLight bulb.
@@ -275,7 +274,8 @@ class Bulb(object):
             else:
                 return BulbType.WhiteTemp
         if all(
-            name in self.last_properties and self.last_properties[name] is None for name in ["ct", "rgb", "hue", "sat"]
+                name in self.last_properties and self.last_properties[name] is None for name in
+                ["ct", "rgb", "hue", "sat"]
         ):
             return BulbType.White
         else:
@@ -292,24 +292,24 @@ class Bulb(object):
         return self._music_mode
 
     def get_properties(
-        self,
-        requested_properties=[
-            "power",
-            "bright",
-            "ct",
-            "rgb",
-            "hue",
-            "sat",
-            "color_mode",
-            "flowing",
-            "delayoff",
-            "music_on",
-            "nl_br",
-            "active_mode",
-            "bg_power",
-            "bg_rgb",
-            "name",
-        ],
+            self,
+            requested_properties=[
+                "power",
+                "bright",
+                "ct",
+                "rgb",
+                "hue",
+                "sat",
+                "color_mode",
+                "flowing",
+                "delayoff",
+                "music_on",
+                "nl_br",
+                "active_mode",
+                "bg_power",
+                "bg_rgb",
+                "name",
+            ],
     ):
         """
         Retrieve and return the properties of the bulb.

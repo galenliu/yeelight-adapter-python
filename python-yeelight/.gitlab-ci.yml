@@ -16,4 +16,4 @@ static_check:
 tests:
   stage: tests
   script:
-  - tox
+    - tox

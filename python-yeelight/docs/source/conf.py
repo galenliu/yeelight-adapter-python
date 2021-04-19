@@ -26,7 +26,6 @@ from yeelight import metadata
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 sys.path.insert(0, os.path.abspath("../.."))
 
-
 # -- General configuration ----------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
@@ -184,7 +183,6 @@ html_static_path = ["_static"]
 
 # Output file base name for HTML help builder.
 htmlhelp_basename = metadata.project_no_spaces + "doc"
-
 
 # -- Options for LaTeX output -------------------------------------------------
 

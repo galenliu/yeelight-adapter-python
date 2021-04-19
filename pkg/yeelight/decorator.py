@@ -46,6 +46,7 @@ __version__ = "4.0.10"
 if sys.version >= "3":
     from inspect import getfullargspec
 
+
     def get_init(cls):
         return cls.__init__
 
@@ -68,9 +69,9 @@ else:
 
         getargspec = inspect.getargspec
 
+
     def get_init(cls):
         return cls.__init__.__func__
-
 
 # getargspec has been deprecated in Python 3.5
 ArgSpec = collections.namedtuple("ArgSpec", "args varargs varkw defaults")
@@ -114,8 +115,8 @@ class FunctionMaker(object):
                     setattr(self, "arg%d" % i, arg)
                 if sys.version < "3":  # easy way
                     self.shortsignature = self.signature = inspect.formatargspec(formatvalue=lambda val: "", *argspec)[
-                        1:-1
-                    ]
+                                                           1:-1
+                                                           ]
                 else:  # Python 3 way
                     allargs = list(self.args)
                     allshortargs = list(self.args)
@@ -288,6 +289,7 @@ if n_args == 2 and not init.varargs:  # (self, genobj) Python 2.7
     def __init__(self, g, *a, **k):
         return _GeneratorContextManager.__init__(self, g(*a, **k))
 
+
     ContextManager.__init__ = __init__
 elif n_args == 2 and init.varargs:  # (self, gen, *a, **k) Python 3.4
     pass
@@ -295,6 +297,7 @@ elif n_args == 4:  # (self, gen, args, kwds) Python 3.5
 
     def __init__(self, g, *a, **k):
         return _GeneratorContextManager.__init__(self, g, a, k)
+
 
     ContextManager.__init__ = __init__
 

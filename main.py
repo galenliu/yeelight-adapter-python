@@ -1,15 +1,14 @@
 """TP-Link adapter for WebThings Gateway."""
 
-from os import path
 import functools
 import signal
 import sys
 import time
+from os import path
 
 sys.path.append(path.join(path.dirname(path.abspath(__file__)), 'lib'))
 
 from pkg.yeelight_adapter import YeelightAdapter
-
 
 _DEBUG = False
 _ADAPTER = None
