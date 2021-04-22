@@ -1,4 +1,3 @@
-import threading
 import time
 
 from gateway_addon import Device
