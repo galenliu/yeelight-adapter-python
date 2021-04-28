@@ -81,7 +81,6 @@ class YeelightBulb(YeelightDevice):
                     '@type': 'ColorProperty',
                     'title': 'Hue',
                     'type': 'string',
-
                 },
                 "#FFFFFF",
             )
@@ -101,7 +100,7 @@ class YeelightBulb(YeelightDevice):
     def poll(self):
         """Poll the device for changes."""
 
-        def onMessage(params):
+        def on_message(params):
             print(params)
 
             if "power" in params.keys():
@@ -118,7 +117,7 @@ class YeelightBulb(YeelightDevice):
             time.sleep(_POLL_INTERVAL)
 
             try:
-                self.bulb.listen(onMessage)
+                self.bulb.listen(on_message)
             except Exception as e:
                 print(e)
                 continue

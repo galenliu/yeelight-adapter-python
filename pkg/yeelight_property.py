@@ -15,6 +15,7 @@ class OnOffProperty(Property):
         value -- current value of this property
         """
         Property.__init__(self, device, name, description)
+        self.set_cached_value(value)
 
     def set_value(self, value):
         print("onOff set value:", value)
@@ -39,6 +40,7 @@ class ColorProperty(Property):
         value -- current value of this property
         """
         Property.__init__(self, device, name, description)
+        self.set_cached_value(value)
 
     def set_value(self, value):
         print("set ColorProperty")
@@ -64,6 +66,7 @@ class BrightProperty(Property):
         value -- current value of this property
         """
         Property.__init__(self, device, name, description)
+        self.set_cached_value(value)
 
     def set_value(self, value):
         print("set bright")
