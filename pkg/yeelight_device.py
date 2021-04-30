@@ -1,3 +1,4 @@
+import threading
 import time
 
 from gateway_addon import Device
@@ -26,14 +27,16 @@ class YeelightDevice(Device):
 
         Device.__init__(self, adapter, _id)
 
+
+
         # self.on = None
         # self.bright = None
         # self.color = None
         # self.color_temp = None
 
-        # t = threading.Thread(target=self.poll)
-        # t.daemon = True
-        # t.start()
+        t = threading.Thread(target=self.poll)
+        t.daemon = True
+        t.start()
 
 
 class YeelightBulb(YeelightDevice):
@@ -49,11 +52,12 @@ class YeelightBulb(YeelightDevice):
         """
         print(message)
 
-        _id = "Light" + message["ip"]
+        _id = message["capabilities"]["id"]
         _ip = message["ip"]
         YeelightDevice.__init__(self,
                                 adapter, _id, _ip)
         self._type.append('Light')
+
 
         # bright
         if "set_bright" in message["capabilities"]["support"]:
