@@ -14,11 +14,10 @@
 # serve to show the default.
 
 import os
-import sys
-
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 import sphinx_rtd_theme
+import sys
 from yeelight import metadata
 
 # If extensions (or modules to document with autodoc) are in another directory,
@@ -34,10 +33,10 @@ sys.path.insert(0, os.path.abspath("../.."))
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = [
-    "sphinx.ext.autodoc",  # 'sphinx.ext.intersphinx',
-    "sphinx.ext.todo",
-    "sphinx.ext.coverage",
-    "sphinx.ext.viewcode",
+  "sphinx.ext.autodoc",  # 'sphinx.ext.intersphinx',
+  "sphinx.ext.todo",
+  "sphinx.ext.coverage",
+  "sphinx.ext.viewcode",
 ]
 
 # show todos
@@ -187,25 +186,25 @@ htmlhelp_basename = metadata.project_no_spaces + "doc"
 # -- Options for LaTeX output -------------------------------------------------
 
 latex_elements = {
-    # The paper size ('letterpaper' or 'a4paper').
-    # 'papersize': 'letterpaper',
-    # The font size ('10pt', '11pt' or '12pt').
-    # 'pointsize': '10pt',
-    # Additional stuff for the LaTeX preamble.
-    # 'preamble': '',
+  # The paper size ('letterpaper' or 'a4paper').
+  # 'papersize': 'letterpaper',
+  # The font size ('10pt', '11pt' or '12pt').
+  # 'pointsize': '10pt',
+  # Additional stuff for the LaTeX preamble.
+  # 'preamble': '',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author,
 # documentclass [howto/manual]).
 latex_documents = [
-    (
-        "index",
-        metadata.project_no_spaces + ".tex",
-        metadata.project + " Documentation",
-        metadata.authors_string,
-        "manual",
-    )
+  (
+    "index",
+    metadata.project_no_spaces + ".tex",
+    metadata.project + " Documentation",
+    metadata.authors_string,
+    "manual",
+  )
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -245,15 +244,15 @@ man_pages = [("index", metadata.package, metadata.project + " Documentation", me
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (
-        "index",
-        metadata.project_no_spaces,
-        metadata.project + " Documentation",
-        metadata.authors_string,
-        metadata.project_no_spaces,
-        metadata.description,
-        "Miscellaneous",
-    )
+  (
+    "index",
+    metadata.project_no_spaces,
+    metadata.project + " Documentation",
+    metadata.authors_string,
+    metadata.project_no_spaces,
+    metadata.description,
+    "Miscellaneous",
+  )
 ]
 
 # Documents to append as an appendix to all manuals.
