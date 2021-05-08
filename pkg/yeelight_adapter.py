@@ -1,9 +1,9 @@
 """TP-Link adapter for WebThings Gateway."""
 
 from gateway_addon import Adapter
-from pkg.yeelight_device import YeelightBulb
 
-from yeelight import discover_bulbs
+from .yeelight import discover_bulbs
+from ..pkg.yeelight_device import YeelightBulb
 
 _TIMEOUT = 3
 
