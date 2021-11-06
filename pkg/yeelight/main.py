@@ -5,6 +5,7 @@ import os
 import socket
 import struct
 from enum import Enum
+
 from future.utils import raise_from
 
 from .decorator import decorator
