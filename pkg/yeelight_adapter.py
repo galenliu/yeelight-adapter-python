@@ -47,9 +47,8 @@ class YeelightAdapter(Adapter):
       messages = discover_bulbs()
       for message in messages:
         dev = YeelightBulb(self, message)
-        print("addon device:", dev)
+        print("addon addon:", dev)
         self.handle_device_added(dev)
     except Exception as e:
       print(e)
-
     print("discover over......")

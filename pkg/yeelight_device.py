@@ -14,10 +14,10 @@ class YeelightDevice(Device):
   def __init__(self, adapter, _id, ip):
     """
     Initialize the object.
-    adapter -- the Adapter managing this device
-    _id -- ID of this device
-    hs100_dev -- the pyHS100 device object to initialize from
-    index -- index inside parent device
+    adapter -- the Adapter managing this addon
+    _id -- ID of this addon
+    hs100_dev -- the pyHS100 addon object to initialize from
+    index -- index inside parent addon
     """
 
     try:
@@ -44,10 +44,10 @@ class YeelightBulb(YeelightDevice):
   def __init__(self, adapter, message):
     """
     Initialize the object.
-    adapter -- the Adapter managing this device
-    _id -- ID of this device
-    hs100_dev -- the pyHS100 device object to initialize from
-    index -- index inside parent device
+    adapter -- the Adapter managing this addon
+    _id -- ID of this addon
+    hs100_dev -- the pyHS100 addon object to initialize from
+    index -- index inside parent addon
     """
     print(message)
 
@@ -100,7 +100,7 @@ class YeelightBulb(YeelightDevice):
     )
 
   def poll(self):
-    """Poll the device for changes."""
+    """Poll the addon for changes."""
 
     def on_message(params):
       print(params)

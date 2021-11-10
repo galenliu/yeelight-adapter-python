@@ -9,7 +9,7 @@ class OnOffProperty(Property):
   def __init__(self, device, name, description, value):
     """
     Initialize the object.
-    device -- the Device this property belongs to
+    addon -- the Device this property belongs to
     name -- name of the property
     description -- description of the property, as a dictionary
     value -- current value of this property
@@ -34,7 +34,7 @@ class ColorProperty(Property):
   def __init__(self, device, name, description, value):
     """
     Initialize the object.
-    device -- the Device this property belongs to
+    addon -- the Device this property belongs to
     name -- name of the property
     description -- description of the property, as a dictionary
     value -- current value of this property
@@ -60,7 +60,7 @@ class BrightProperty(Property):
   def __init__(self, device, name, description, value):
     """
     Initialize the object.
-    device -- the Device this property belongs to
+    addon -- the Device this property belongs to
     name -- name of the property
     description -- description of the property, as a dictionary
     value -- current value of this property
