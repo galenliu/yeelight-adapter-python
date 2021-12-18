@@ -26,7 +26,9 @@ class OnOffProperty(Property):
                 self.device.bulb.turn_off()
         except Exception as e:
             print(e)
-        self.set_cached_value_and_notify(value)
+        self.set_cached_value(value)
+        self.device.notify_property_changed(self)
+        print("=================")
 
 
 class ColorProperty(Property):
@@ -49,8 +51,9 @@ class ColorProperty(Property):
             try:
                 tp = hex_to_rgb(value)
                 print(tp)
-                self.device.bulb.set_rgb(tp[0], tp[1], tp[2])
-                self.set_cached_value_and_notify(value)
+                self.device.bulb.set_hsv(tp[0], tp[1], tp[2])
+                self.set_cached_value(value)
+                self.device.notify_property_changed(self)
             except Exception as e:
                 print(e)
 
@@ -76,7 +79,8 @@ class BrightProperty(Property):
                 self.device.bulb.set_brightness(value)
             except Exception as e:
                 print(e)
-            self.set_cached_value_and_notify(value)
+            self.set_cached_value(value)
+            self.device.notify_property_changed(self)
 
 
 def hex_to_rgb(value):
