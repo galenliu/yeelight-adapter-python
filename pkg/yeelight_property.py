@@ -18,6 +18,7 @@ class OnOffProperty(Property):
         self.set_cached_value(value)
 
     def set_value(self, value):
+
         print("onOff set value:", value)
         try:
             if value:
@@ -51,7 +52,7 @@ class ColorProperty(Property):
             try:
                 tp = hex_to_rgb(value)
                 print(tp)
-                self.device.bulb.set_hsv(tp[0], tp[1], tp[2])
+                self.device.bulb.set_rgb(tp[0], tp[1], tp[2])
                 self.set_cached_value(value)
                 self.device.notify_property_changed(self)
             except Exception as e:

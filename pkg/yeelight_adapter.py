@@ -20,7 +20,7 @@ class YeelightAdapter(Adapter):
         Adapter.__init__(self,
                          'yeelight-adapter',
                          'yeelight-adapter-python',
-                         verbose=verbose)
+                         verbose=True)
 
         self.pairing = False
         self.start_pairing(_TIMEOUT)

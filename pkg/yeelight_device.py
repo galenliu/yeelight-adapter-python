@@ -3,6 +3,7 @@ import time
 
 from gateway_addon import Device
 from pkg.yeelight_property import BrightProperty, OnOffProperty, ColorProperty
+from pkg.yeelight_effects import YeelightEffect
 
 from yeelight import Bulb
 
@@ -21,7 +22,7 @@ class YeelightDevice(Device):
         """
 
         try:
-            self.bulb = Bulb(ip)
+            self.bulb = Bulb(ip, auto_on=True)
             self.bulb.turn_off()
         except Exception as e:
             print(e)
@@ -98,6 +99,7 @@ class YeelightBulb(YeelightDevice):
             },
             message["capabilities"]["power"]
         )
+        self.add_action("effect", {})
 
     def poll(self):
         """Poll the addon for changes."""
@@ -123,3 +125,9 @@ class YeelightBulb(YeelightDevice):
             except Exception as e:
                 print(e)
                 continue
+
+    def perform_action(self, action: YeelightEffect):
+        t = action.input["type"]
+        d = action.input["duration"]
+        self.bulb.turn_on(effect=t,duration=d)
+        action.finish()
