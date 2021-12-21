@@ -1,11 +1,12 @@
 """TP-Link adapter for WebThings Gateway."""
 
+import eventlet
 from gateway_addon import Adapter
 from pkg.yeelight_device import YeelightBulb
-
 from yeelight import discover_bulbs
 
-_TIMEOUT = 3
+
+_TIMEOUT = 3000
 
 
 class YeelightAdapter(Adapter):
@@ -34,21 +35,25 @@ class YeelightAdapter(Adapter):
         if self.pairing:
             return
         self.pairing = True
-        self.discover()
+        self.discover(timeout)
         self.pairing = False
 
     def cancel_pairing(self):
         """Cancel the pairing process."""
         self.pairing = False
 
-    def discover(self):
+    def discover(self, timeout):
         """discover  devices."""
+
+        eventlet.monkey_patch()
         try:
-            messages = discover_bulbs()
-            for message in messages:
-                dev = YeelightBulb(self, message)
-                print("addon addon:", dev)
-                self.handle_device_added(dev)
+            with eventlet.Timeout(timeout * 0.001, False):
+                while True:
+                    messages = discover_bulbs()
+                    for message in messages:
+                        dev = YeelightBulb(self, message)
+                        print("discover device:", dev)
+                        self.handle_device_added(dev)
         except Exception as e:
             print(e)
         print("discover over......")
